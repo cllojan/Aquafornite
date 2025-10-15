@@ -26,9 +26,9 @@ export default  function Success(){
                 const history = {
                     user_id:user?.id,
                     items: items.map(item => ({
-                        name:item.displayName,
+                        name:item?.bundle?.name || item?.brItems?.[0].name || item.tracks?.[0].title,
                         price:item.discount,
-                        image:item.displayAssets[0].url
+                        image:item?.newDisplayAsset?.renderImages[0].image || item.tracks[0].albumArt
                     })),
                     total:skinsDiscount.reduce((sum ,item) => sum + item,0)
                 }
