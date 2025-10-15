@@ -26,7 +26,7 @@ export function OrderSkins(skins: SkinWithDiscount[], filters:{
     let itemsFilter: Skin[] = skins
 
     itemsFilter = skins.filter(skin => {
-        if (filters.search && !skin.layout?.name.toLowerCase().includes(filters.search.toLowerCase())) return false;
+        if (filters.search && !skin.layout?.name.toLowerCase().includes(filters.search.toLowerCase()) && !skin?.bundle?.name.toLowerCase().includes(filters.search.toLowerCase()) && !skin.tracks?.[0].title.toLowerCase().includes(filters.search.toLowerCase())) return false;
         if (filters.rarity && filters.rarity !== "All" && !skin.rarity?.id.includes(filters.rarity)) return false;
         if (filters.category && filters.category !== "Todos" && !skin.layout?.name.includes(filters.category)) return false;
 
