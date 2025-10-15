@@ -1,4 +1,4 @@
-'use client'
+
 import {auth} from "@/lib/auth";
 import AuthClientPage from "@/app/auth/auth-client"
 import {headers } from "next/headers"
