@@ -1,7 +1,8 @@
 'use client'
 import Header from '@/components/Header'
 import User from '@/components/user';
-import { useUser } from '@clerk/nextjs';
+import { useUser } from '@/hooks/useUser';
+
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { format } from "date-fns";
 import React, { useEffect, useState } from 'react'
@@ -21,10 +22,10 @@ interface History {
 }
 export default function UserPage() {
 
-    const { user, isLoaded, isSignedIn } = useUser();
+    const { user, isLoading } = useUser();
     const [history, setHistory] = useState<History[]>([]);
     useEffect(() => {
-        if (!isLoaded || !user) return;
+        if (!isLoading || !user) return;
         const fetchHistory = async () => {
             const res = await fetch(`/api/history?user_id=${user?.id}`)
 
@@ -32,7 +33,7 @@ export default function UserPage() {
             setHistory(data.history)
         }
         fetchHistory()
-    }, [isLoaded, user])
+    }, [isLoading, user])
     console.log(history)
     return (
 
