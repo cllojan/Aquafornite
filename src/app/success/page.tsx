@@ -1,6 +1,7 @@
 'use client'
 import { useSkinCart } from "@/hooks/useSkinCart";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/hooks/useUser";
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -9,11 +10,11 @@ import { useEffect, useState } from "react";
 export default  function Success(){
     
     const {items, removeAll} =  useSkinCart();
-    const { user,isLoaded } = useUser();
+    const { user,isLoading } = useUser();
     const [hasSaved, setHasSaved] = useState(false);
     
     useEffect(() => {
-        if (!isLoaded || items.length === 0 || hasSaved) return;
+        if (!isLoading|| items.length === 0 || hasSaved) return;
         const sendToHistory = async () => {
             if (!user) {
                 console.log("⚠️ Usuario no registrado, no se guardará historial.");
@@ -54,7 +55,7 @@ export default  function Success(){
 
         }
         sendToHistory();
-    },[isLoaded,items,user,hasSaved])
+    },[isLoading,items,user,hasSaved])
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
             <div className="max-w-md w-full text-center">
