@@ -14,3 +14,4 @@ export default async function AuthPage(){
     }
     return <AuthClientPage/>
 }
+export const runtime = 'edge';
