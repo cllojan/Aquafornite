@@ -36,7 +36,7 @@ const Header = () => {
     }, [theme])
     const handlePay = async () => {
         const formatedItems = items.map(item => ({
-            name: item.bundle.name || item.brItems?.[0].name,
+            name: item.bundle?.name || item.brItems?.[0].name || item.tracks?.[0].title,
             price: item.discount,
             images: item?.newDisplayAsset?.renderImages[0].image,
             quantity: 1,
@@ -51,6 +51,7 @@ const Header = () => {
             }),
         })
         const { url } = await response.json();
+        console.log(url)
         window.location.href = url
     }
     const handleCountryChange = (value: any) => {
@@ -96,7 +97,7 @@ const Header = () => {
 
                 <SelectedItems options={countryOptions} onChange={handleCountryChange} />
 
-                <div className=" relative drawer drawer-end">
+                <div className="drawer drawer-end">
                     <input id="my-drawer-4" type="checkbox" className="drawer-toggle btn btn-ghost btn-circle" />
                     <div className="drawer-content">
                         {/* Page content here */}
@@ -115,92 +116,100 @@ const Header = () => {
                                     </div>
                             }
 
-
+                            
                         </label>
                     </div>
-                    <div className="drawer-side  z-90">
-                        <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay "></label>
-                        <div className="z-1000 menu bg-base-200 text-base-content min-h-full w-70 md:w-80 p-4 flex flex-col">
-                            {/* Sidebar content here */}
-                            <div className="flex items-center mb-10">
-                                <h1 className="flex-1 text-lg">Carrito de compras</h1>
-                                <div className="drawer-content">
-                                    {/* Page content here */}
-                                    <label htmlFor="my-drawer-4" className="drawer-button btn btn-ghost">
-                                        <Icon icon="solar:exit-bold" fontSize={25} style={{ color: 'black' }} />
-                                    </label>
-                                </div>
+                    <div className="top-0 right-0 h-screen drawer-side z-[1000]">
+                        <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
+
+                        {/* Contenedor principal del drawer */}
+                        <div className="menu bg-base-200 text-base-content min-h-full w-70 md:w-80 flex flex-col">
+
+                            {/* Header del drawer */}
+                            <div className="flex items-center p-4 border-b border-base-300">
+                                <h1 className="flex-1 text-lg font-semibold">Carrito de compras</h1>
+                                <label htmlFor="my-drawer-4" className="btn btn-ghost btn-sm btn-circle">
+                                    <Icon icon="solar:exit-bold" fontSize={25} />
+                                </label>
                             </div>
-                            <div className="z-100 flex w-full flex-col ">
-                                {
-                                    items.length === 0
-                                        ?
-                                        (<div className="flex flex-col justify-center gap-7 items-center">
-                                            <Icon icon="bi:cart-x" fontSize={75} />
-                                            <h1 className="text-lg text-center">Carrito de compras <span className="text-error text-center text-bold">vacio!</span></h1>
-                                            <p className="text-center">Agrega algunos productos antes de proceder con la compra </p>
-                                        </div>) :
-                                        items.map((item, inx) => (
-                                            <div className="" key={inx}>
-                                                <div className="w-full flex flex-row ">
-                                                    <div
-                                                        className="size-24 shrink-0 overflow-hidden rounded-md "
-                                                        style={{
 
-                                                            ...getBackgroundStyle(item)
-                                                        }}
-                                                    >
-                                                        <img className="size-full object-cover" src={item.newDisplayAsset?.renderImages[0].image || item.tracks[0].albumArt} alt="" />
-                                                    </div>
-                                                    <div className="ml-4 flex flex-1 flex-col">
-                                                        <div className="flex justify-between  font-medium ">
-                                                            <h3 >{item?.bundle?.name || item.brItems?.[0].name || item.tracks?.[0].title}</h3>
-                                                            <p className="ml-4">{item.discount}</p>
-                                                        </div>
-                                                        <div className="flex flex-1 items-end justify-between text-sm">
-                                                            <p className="text-gray-500"></p>
-                                                            <span className="group cursor-pointer" onClick={e => removeItem(item.mainId)}><Icon className="group-hover:text-error" icon="solar:trash-bin-2-bold" fontSize={25} /></span>
-                                                        </div>
-                                                    </div>
-
+                            {/* Contenido scrolleable */}
+                            <div className="flex-1 overflow-y-auto p-4">
+                                {items.length === 0 ? (
+                                    <div className="flex flex-col justify-center gap-7 items-center h-full">
+                                        <Icon icon="bi:cart-x" fontSize={75} />
+                                        <h1 className="text-lg text-center">
+                                            Carrito de compras <span className="text-error font-bold">vacío!</span>
+                                        </h1>
+                                        <p className="text-center">
+                                            Agrega algunos productos antes de proceder con la compra
+                                        </p>
+                                    </div>
+                                ) : (
+                                    items.map((item, inx) => (
+                                        <div key={inx}>
+                                            <div className="w-full flex flex-row gap-4">
+                                                <div
+                                                    className="size-24 shrink-0 overflow-hidden rounded-md"
+                                                    style={getBackgroundStyle(item)}
+                                                >
+                                                    <img
+                                                        className="size-full object-cover"
+                                                        src={item.newDisplayAsset?.renderImages[0].image || item.tracks[0]?.albumArt}
+                                                        alt=""
+                                                    />
                                                 </div>
-                                                <div className=" divider"></div>
+                                                <div className="flex flex-1 flex-col">
+                                                    <div className="flex justify-between font-medium">
+                                                        <h3 className="text-sm line-clamp-2">
+                                                            {item?.bundle?.name || item.brItems?.[0].name || item.tracks?.[0].title}
+                                                        </h3>
+                                                        <p className="ml-4 whitespace-nowrap">${item.discount}</p>
+                                                    </div>
+                                                    <div className="flex flex-1 items-end justify-between text-sm mt-2">
+                                                        <p className="text-gray-500"></p>
+                                                        <span
+                                                            className="group cursor-pointer"
+                                                            onClick={() => removeItem(item.devName)}
+                                                        >
+                                                            <Icon
+                                                                className="group-hover:text-error transition-colors"
+                                                                icon="solar:trash-bin-2-bold"
+                                                                fontSize={25}
+                                                            />
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        ))
+                                            {inx < items.length - 1 && <div className="divider my-2"></div>}
+                                        </div>
+                                    ))
+                                )}
+                            </div>
 
-                                }
-                                <div className="" >
-                                    <div className="w-full h-20 flex flex-row ">
-                                        <div className="ml-4 flex flex-1 flex-col">
-                                            <div className="flex justify-between  font-medium ">
-                                                <h3 ></h3>
-                                                <p className="ml-4"></p>
-                                            </div>
-                                            <div className="flex flex-1 items-end justify-between text-sm">
-                                                <p className="text-gray-500"></p>
-                                                <span className="group cursor-pointer"> </span>
-                                            </div>
+                            {/* Footer fijo - solo se muestra si hay items */}
+                            {items.length > 0 && (
+                                <div className="border-t border-base-300 p-4 bg-base-200">
+                                    <div className="space-y-2 mb-3">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-sm text-base-content/70">Artículos:</span>
+                                            <span className="font-semibold">{items.length} skins</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-lg font-bold">Total:</span>
+                                            <span className="text-lg font-bold text-info">${total.toFixed(2)}</span>
                                         </div>
                                     </div>
+                                    <button
+                                        className="btn btn-success btn-block gap-2"
+                                        onClick={handlePay}
+                                    >
+                                        Comprar
+                                        <Icon icon="solar:wallet-money-bold" fontSize={22} />
+                                    </button>
                                 </div>
-
-                            </div>
-
-
+                            )}
                         </div>
-                        {
-                            items.length == 0 ?
-                                ''
-                                :
-                                (
-                                    <div className=" pl-3 pr-5 pb-5 w-70 md:w-80 flex flex-col  bg-base-200  ">
-                                        <span className="text-lg font-bold">{items.length} skins</span>
-                                        <span className="text-info text-base ">Total: {total.toFixed(2)}</span>
-                                        <button className="mt-5 btn btn-success btn-block" onClick={handlePay}>Comprar<Icon icon="solar:wallet-money-bold" fontSize={25} /></button>
-
-                                    </div>
-                                )
-                        }
                     </div>
                 </div>
 

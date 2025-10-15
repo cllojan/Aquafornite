@@ -13,14 +13,18 @@
 }
 @plugin "daisyui"{
   themes: light --default, dark --prefersdark,corporate;
+  exclude: checkbox, footer, typography, glass, rootcolor, rootscrollgutter;
+
 };
 
 .inputs:focus{
   outline:2px solid white;
   outline-offset:2px;
 }
+
 body {
   font-family: 'Space Grotesk', 'Roboto', sans-serif;
+  
 }
 select{
   &:focus,

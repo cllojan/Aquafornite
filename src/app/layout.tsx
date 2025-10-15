@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {  Space_Grotesk } from "next/font/google";
-
+import { signOut, useSession } from "@/lib/auth-client";
 import "./globals.css";
 import { UserProvider } from "@/hooks/useUser";
 
@@ -19,10 +19,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
   return (
     
       
-      <html lang="en" suppressHydrationWarning={true} data-theme="corporate" >
+      <html lang="en" suppressHydrationWarning={true}   >
         <body
           className={`${SpaceGrotesk.variable}  antialiased`}
         >                    
