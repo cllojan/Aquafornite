@@ -15,13 +15,13 @@ export async function getSkins() {
     
     const skinsRate = data.data.entries;
     const discountRate = 0.0043;
-    console.log(skinsRate);
+    
     //agregar el discount - descuento que hace aquifornais
     const skins:SkinWithDiscount[] = skinsRate.map((skin:any)=> ({
         ...skin,
         discount: parseFloat((skin?.finalPrice * discountRate).toFixed(2)),
     })) 
-    console.log(skins)
+    
     //Solo para obtener las categorias 
     let filteredSkins: Record<string, {layout:Layout, skins:Skin[]}> = {};
     //para tener un objeto que empeize con nombre de la categoria y las skins

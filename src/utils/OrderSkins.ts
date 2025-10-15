@@ -74,7 +74,6 @@ export function OrderSkins(skins: SkinWithDiscount[], filters:{
             return b.sortPriority - a.sortPriority
         })
     })
-    console.log(orderedFilteredSkins)
-    console.log(orderedFilteredSkins)
+    
     return { filteredSkins:orderedFilteredSkins, categories }
 }
