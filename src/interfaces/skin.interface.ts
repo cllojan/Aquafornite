@@ -2,6 +2,11 @@ export interface brItems {
     id:string;
     name:string;
     description:string;
+    rarity:{
+        value:string;
+        displayValue:string;
+        backendValue:string;
+    };
 }
 export interface Tracks{
     added:string;

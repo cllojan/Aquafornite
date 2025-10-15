@@ -44,11 +44,10 @@ const Skins = ({ skins, categories }: { skins: SkinWithDiscount[], categories: s
 
   const rari = [
     { key: "All", label: "Todos" },
-    { key: "Common", label: "Común" },
-    { key: "Epic", label: "Epico" },
-    { key: "Legendary", label: "Legendario" },
-    { key: "Rare", label: "Raro" },
-    { key: "Uncommon", label: "Poco común" },
+    { key: "epic", label: "Épico" },  
+    { key: "rare", label: "Raro" },
+    { key: "icon", label: "Serie de Idolos" },
+    { key: "uncommon", label: "Poco común" },
   ]
 
    const sortByItems = [
