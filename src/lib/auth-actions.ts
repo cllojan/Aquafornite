@@ -4,13 +4,7 @@ import {headers} from "next/headers"
 import {redirect} from "next/navigation"
 import bcrypt from "bcrypt";
 import argon2 from "argon2";
-type ServerActionResult<T> = | {success: true, data: T} | {success: false, error: string};
-export class ServerActionError extends Error {
-    constructor(message:string) {
-      super(message);
-      this.name = "ServerActionError";
-    }
-  }
+
    
 export const signUp = async (email: string , password: string ,name: string) => {
 
@@ -45,10 +39,8 @@ export const signInSocial = async(provider: "google" | "discord")=>{
         if(url){
             redirect(url);
         }
-    }catch(error ){
-        if(error instanceof ServerActionError){
-            return {success:false, error: error.message};
-        }        
+    }catch(error ){        
+        //return {success:false, error: error.message};        
         throw error;
     }   
     
