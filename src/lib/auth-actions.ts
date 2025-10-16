@@ -33,7 +33,7 @@ export const signIn = async (email: string , password: string) => {
 
 }
 export const signInSocial = async(provider: "google" | "discord")=>{
-    let resultUrl: string | null = null;
+    
     try{
         const {url} = await auth.api.signInSocial({
             body:{
@@ -42,16 +42,16 @@ export const signInSocial = async(provider: "google" | "discord")=>{
             }
     
         });
-        resultUrl = url as string;
+        if(url){
+            redirect(url);
+        }
     }catch(error ){
         if(error instanceof ServerActionError){
             return {success:false, error: error.message};
         }        
         throw error;
     }   
-    if(resultUrl){
-        redirect(resultUrl);
-    }
+    
 }
 export const signOut = async () => {
     const result = await auth.api.signOut({headers: await headers()})
