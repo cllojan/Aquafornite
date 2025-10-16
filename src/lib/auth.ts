@@ -31,11 +31,7 @@ export const auth = betterAuth({
         clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
         permissions: 2048 | 16384,
       },
-      google: {
-        clientId: process.env.GOOGLE_CLIENT_ID as string,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        
-      }
+      
   },
   plugins: [nextCookies()],
  
