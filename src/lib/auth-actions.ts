@@ -26,16 +26,24 @@ export const signIn = async (email: string , password: string) => {
 
 }
 export const signInSocial = async(provider: "google" | "discord")=>{
-    const {url} = await auth.api.signInSocial({
-        body:{
-            provider,
-            callbackURL:'/perfil',
-        }
-
-    });
-    if(url){
-        redirect(url);
+    let resultUrl: string | null = null;
+    try{
+        const {url} = await auth.api.signInSocial({
+            body:{
+                provider,
+                callbackURL:'/perfil',
+            }
+    
+        });
+        resultUrl = url as string
+    }catch(error){
+        console.error(error);
+        return {success:false, message: "Error authenticating with social provider"}
     }
+    if(resultUrl){
+        redirect(resultUrl);
+    }
+    return {success: true};
 }
 export const signOut = async () => {
     const result = await auth.api.signOut({headers: await headers()})
