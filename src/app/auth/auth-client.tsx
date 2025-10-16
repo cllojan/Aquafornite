@@ -34,8 +34,8 @@ export default function AuthClientPage(){
         setError("");
         try {
             if(isSignIn){
-                const result = await signIn(email, password);
-                if(!result.user){
+                const {result} = await signIn(email, password);
+                if(!result?.user){
                     setError("Invalid email or password");
                 }
                 

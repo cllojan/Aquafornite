@@ -17,13 +17,21 @@ export const signUp = async (email: string , password: string ,name: string) => 
     return result;
 }
 export const signIn = async (email: string , password: string) => {
-    const result = await auth.api.signInEmail({
-        body: {
-            email, password, callbackURL:'/perfil'
+    try{
+        const result = await auth.api.signInEmail({
+            body: {
+                email, 
+                password,
+                callbackURL:'/perfil',
+            }
+        })
+        if(!result.user){
+            return {sucesss:false, message: "Credenciales Incorrectas"};
         }
-    })
-    redirect("/perfil"); 
-    return result;
+        return {sucesss:true, result}
+    }catch(error:any){
+        return {success:false, message: error.message || "Error Desconocido"}
+    }
 
 }
 export const signInSocial = async(provider: "google" | "discord")=>{
