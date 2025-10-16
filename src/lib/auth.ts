@@ -15,6 +15,11 @@ export const auth = betterAuth({
     
   }),
   advanced:{
+    useSecureCookies:true,
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: "aquafornais.dpdns.org", // your domain
+    },
     database:{
       generateId:false,
       useNumberId: true
