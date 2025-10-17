@@ -19,8 +19,17 @@ export const auth = betterAuth({
     database:{
       generateId:false,
       useNumberId: true
+    },
+    ipAddress:{
+      ipAddressHeaders: ['cf-connecting-ip'] 
     }
+    
   },
+  trustedOrigins:[
+    "*",
+    "https://8787-firebase-aquafornite-1747146266938.cluster-iesosxm5fzdewqvhlwn5qivgry.cloudworkstations.dev/",
+    "https://aquafornais.dpdns.org/"
+  ],
   secret: process.env.BETTER_AUTH_SECRET,
   emailAndPassword:{
     enabled: true,
