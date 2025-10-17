@@ -1,14 +1,14 @@
 {
-  "/api/profile/route": "/api/profile",
-  "/api/checkout/route": "/api/checkout",
   "/_not-found/page": "/_not-found",
+  "/api/checkout/route": "/api/checkout",
+  "/api/profile/route": "/api/profile",
   "/favicon.ico/route": "/favicon.ico",
   "/api/auth/[...all]/route": "/api/auth/[...all]",
   "/auth/page": "/auth",
   "/login/page": "/login",
   "/page": "/",
-  "/perfil/page": "/perfil",
   "/shop/page": "/shop",
+  "/perfil/page": "/perfil",
   "/success/page": "/success",
   "/user/page": "/user"
 }
