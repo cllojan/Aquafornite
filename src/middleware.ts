@@ -1,23 +1,19 @@
-// middleware.ts
-import { getSessionCookie } from "better-auth/cookies";
-import { NextResponse, type NextRequest } from "next/server";
-
+import { betterFetch } from "@better-fetch/fetch";
+import type { auth } from "@/lib/auth";
+import { NextRequest, NextResponse } from "next/server";
+type Session = typeof auth.$Infer.Session;
 export async function middleware(request: NextRequest) {
-  const sessionCookie = getSessionCookie(request);
-  const { pathname } = request.nextUrl;
-
-  // Optimistic check: redirigir si no hay cookie y se accede a una ruta protegida.
-  if (!sessionCookie) {
-    // Si estás en la página de perfil, te redirige al inicio de sesión.
-    if (pathname === "/perfil") {
-      return NextResponse.redirect(new URL("/auth", request.url));
-    }
-  }
-
-  return NextResponse.next();
+	const { data: session } = await betterFetch<Session>("/api/auth/get-session", {
+		baseURL: request.nextUrl.origin,
+		headers: {
+			cookie: request.headers.get("cookie") || "", // Forward the cookies from the request
+		},
+	});
+	if (!session) {
+		return NextResponse.redirect(new URL("/auth", request.url));
+	}
+	return NextResponse.next();
 }
-
 export const config = {
-  // Solo se aplica a la ruta /perfil, igual que en tu código.
-  matcher: ["/perfil"], 
+	matcher: ["/perfil"], // Apply middleware to specific routes
 };
