@@ -6,9 +6,9 @@
   "/api/auth/[...all]/route": "/api/auth/[...all]",
   "/auth/page": "/auth",
   "/login/page": "/login",
-  "/perfil/page": "/perfil",
   "/page": "/",
+  "/perfil/page": "/perfil",
   "/shop/page": "/shop",
-  "/user/page": "/user",
-  "/success/page": "/success"
+  "/success/page": "/success",
+  "/user/page": "/user"
 }

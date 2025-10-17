@@ -1,24 +1,28 @@
-// middleware.ts
 import { getSessionCookie } from "better-auth/cookies";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  // 🔧 Solo para entornos de desarrollo
+  if (process.env.NODE_ENV === "development") {
+    const origin = request.headers.get("origin");
+    if (origin) {
+      const forwardedHost = origin.replace(/^https?:\/\//, "");
+      const response = NextResponse.next();
+      response.headers.set("x-forwarded-host", forwardedHost);
+      return response;
+    }
+  }
+
   const sessionCookie = getSessionCookie(request);
   const { pathname } = request.nextUrl;
 
-  // Optimistic check: redirigir si no hay cookie y se accede a una ruta protegida.
-  
-  if (!sessionCookie) {
-    // Si estás en la página de perfil, te redirige al inicio de sesión.
-    if (pathname === "/perfil") {
-      return NextResponse.redirect(new URL("/auth", request.url));
-    }
+  if (!sessionCookie && pathname === "/perfil") {
+    return NextResponse.redirect(new URL("/auth", request.url));
   }
-  
+
   return NextResponse.next();
 }
 
 export const config = {
-  // Solo se aplica a la ruta /perfil, igual que en tu código.
-  matcher: ["/perfil"], 
+  matcher: ["/perfil"],
 };
