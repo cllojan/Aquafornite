@@ -15,11 +15,7 @@ export const auth = betterAuth({
     
   }),
   advanced:{
-    useSecureCookies:true,
-    crossSubDomainCookies: {
-      enabled: true,
-      domain: "aquafornais.dpdns.org", // your domain
-    },
+    useSecureCookies:process.env.NODE_ENV === "production",    
     database:{
       generateId:false,
       useNumberId: true

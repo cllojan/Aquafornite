@@ -7,8 +7,8 @@
   "/auth/page": "/auth",
   "/login/page": "/login",
   "/page": "/",
-  "/shop/page": "/shop",
   "/perfil/page": "/perfil",
+  "/shop/page": "/shop",
   "/success/page": "/success",
   "/user/page": "/user"
 }
