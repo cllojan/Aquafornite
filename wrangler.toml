@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 directory = ".open-next/assets"
 binding = "ASSETS"
 [vars]
-DATABASE_URL = "mysql://jeussval_admin:Admin@234@mx130.hostgator.mx/jeussval_aquadb"
+DATABASE_URL = "mysql://root:yHAoLfSRMNPBgFOLiCwaJlajQPEPbBHE@crossover.proxy.rlwy.net:10776/railway"
 BETTER_AUTH_SECRET = "NOSf9gzBoiF2Ea4sAzkxqNQWyqLWxogi"
 BETTER_AUTH_URL = "https://aquafornais.dpdns.org/api/auth"
 NEXT_PUBLIC_BETTER_AUTH_URL="https://aquafornais.dpdns.org/api/auth"
