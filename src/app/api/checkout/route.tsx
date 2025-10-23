@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
           
         }
       ],
-      success_url: `${req.nextUrl.origin}/success`,
-      cancel_url: `${req.nextUrl.origin}/`,
+      success_url: `${process.env.BETTER_AUTH_URL}/success`,
+      cancel_url: `${process.env.BETTER_AUTH_URL}/`,
     });
     return NextResponse.json({ url: session.url },{status: 200})
   } catch (err: any) {
