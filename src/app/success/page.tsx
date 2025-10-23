@@ -63,7 +63,7 @@ export default  function Success(){
                     <Image src={'/images/check_circle.png'} alt="check" width={100} height={100}/>
                 </div>
                 <h1 className="text-3xl font-bold mb-2">Gracias!</h1>
-                <p className="text-gray-00 mb-8">Tu compra fue exitosa </p>
+                <p className="text-slate-950 mb-8">Tu compra fue exitosa </p>
                 <Link href="/">
                     <button className="btn btn-primary">Volver a la inicio</button>
                 </Link>
