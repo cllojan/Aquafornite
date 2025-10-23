@@ -41,7 +41,7 @@ export default  function Success(){
                     },
                     body: JSON.stringify(history)
                 })
-
+                console.log(res)
                 const data = await res.json();
                 console.log('Historial guardado', data);
                 
