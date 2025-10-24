@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
             console.log("Orden guardada");
         }
         return NextResponse.json({ received: true }, { status: 200 });
-    } catch (e) {
+    } catch (e:any) {
         console.error("❌ Error en Webhook:", e.message);
         return NextResponse.json({ error: "Webhook Error" }, { status: 400 });
     }
