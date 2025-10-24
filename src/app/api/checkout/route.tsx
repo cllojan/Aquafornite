@@ -49,6 +49,10 @@ export async function POST(req: NextRequest) {
       ],
       success_url: `${process.env.BETTER_AUTH_URL}/success`,
       cancel_url: `${process.env.BETTER_AUTH_URL}/`,
+      metadata:{
+        userId:body.userId ?? "",
+        items:JSON.stringify(items),
+      }
     });
     return NextResponse.json({ url: session.url },{status: 200})
   } catch (err: any) {

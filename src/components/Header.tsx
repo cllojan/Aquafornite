@@ -47,6 +47,7 @@ const Header = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                userId: session?.user?.id ?? null, 
                 items: formatedItems,
             }),
         })

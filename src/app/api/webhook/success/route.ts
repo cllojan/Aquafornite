@@ -23,14 +23,17 @@ export async function POST(req: NextRequest) {
             const userId = session.metadata?.userId;
             const items = JSON.parse(session.metadata?.items || "[]");
             const total = session.amount_total! / 100;
-            await prisma.orders.create({
-                data: {
-                    user_id: Number(userId),
-                    items: JSON.stringify(items),
-                    total: total,
-                },
-            });
-            console.log("Orden guardada");
+            if(userId){
+                await prisma.orders.create({
+                    data: {
+                        user_id: Number(userId),
+                        items: JSON.stringify(items),
+                        total: total,
+                    },
+                });
+                console.log("Orden guardada");
+            }
+            
         }
         return NextResponse.json({ received: true }, { status: 200 });
     } catch (e:any) {
