@@ -6,11 +6,11 @@ export async function middleware(request: NextRequest) {
         headers: await headers()
     })
     if(!session) {
-        return NextResponse.redirect(new URL("/auth", request.url));
+        return NextResponse.redirect(new URL("/sign-in", request.url));
     }
     return NextResponse.next();
 }
 export const config = {
-  
-  matcher: ["/perfil","/aquacoins"], // Apply middleware to specific routes
+  runtime: "nodejs",
+  matcher: ["/dashboard"], // Apply middleware to specific routes
 };
