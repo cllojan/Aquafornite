@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({error: "Faltan Datos"}, {status: 400});
 
     }
-    console.log(userId, coins)
+    const priceInCents = Math.round(coins.price * 100);
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
             price_data: {
               currency: "usd",
               product_data: { name: `${coins.quantity} AquaCoins` },
-              unit_amount: coins.price,
+              unit_amount:priceInCents ,
             },
             quantity: 1,
           },
