@@ -26,7 +26,7 @@ const aquacoinslist = [
 export default function AquaCoinsPage() {
     const { data: session } = useSession();
     const handleAqua = async (items: any) => {        
-        const response = await fetch('/api/checkout', {
+        const response = await fetch('/api/checkout/aquacoins', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
