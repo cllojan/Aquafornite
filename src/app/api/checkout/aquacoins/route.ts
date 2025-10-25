@@ -6,7 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 })
 
 export async function POST(req: NextRequest) {
-    const {userId, coins} = await req.json();
+    try{
+        const {userId, coins} = await req.json();
     if(!userId || !coins){
         return NextResponse.json({error: "Faltan Datos"}, {status: 400});
 
@@ -34,4 +35,11 @@ export async function POST(req: NextRequest) {
       });
     
       return NextResponse.json({ url: session.url });
+    }catch(err:any){
+        console.error(err)
+        return NextResponse.json(
+          { error: err.message || "Internal server error" },
+          { status: 500 }
+        )
+    }
 }
