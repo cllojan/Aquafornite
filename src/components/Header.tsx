@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Icon } from "@iconify/react";
 import { useSkinCart } from "@/hooks/useSkinCart";
-import { ShopCartBold } from "@/components/icons/ShopCartBold"
-import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
 import SelectedItems from "./SelectedItems";
 import { signOut, useSession } from "@/lib/auth-client";
 import Skin, { SkinWithDiscount } from "@/interfaces/skin.interface";
@@ -21,11 +17,8 @@ const countryOptions = [
 
 
 const Header = () => {
-
     const [theme, setTheme] = useState('corporate');
-    const { data: session } = useSession();
-    console.log(session)
-
+    const { data: session } = useSession();    
     const { items, removeAll, removeItem } = useSkinCart()
     const skins = items.map(skin => skin.discount)
     const total = skins.reduce((total, price) => total + price, 0)
