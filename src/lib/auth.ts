@@ -14,7 +14,19 @@ export const auth = betterAuth({
     provider: 'mysql',
     
   }),
-  
+  databaseHooks:{
+    account:{
+
+    }
+  },
+  user:{
+    additionalFields:{
+      discord_id:{
+        type:'string',
+        required:false,
+      }
+    }
+  },
   advanced:{
     useSecureCookies:process.env.NODE_ENV === "production",    
     
