@@ -14,8 +14,8 @@ model User {
   email         String
   password      String?
   aquacoins     Int?
-  discord_name  String?
-  discord_id    String? 
+  discord_name  String?   @db.VarChar(100)
+  discord_id    String?    @unique(map: "discord_id") @db.VarChar(50)
   emailVerified Boolean   @default(false)
   image         String?   @db.Text
   createdAt     DateTime  @default(now())
