@@ -2,9 +2,11 @@
 import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
+import { signOut, useSession } from "@/lib/auth-client";
 
 export default function page() {
     const {user, isLoading} = useUser();
+    const { data: session } = useSession();  
     const router = useRouter();
     if (isLoading) {
         return (
@@ -25,15 +27,17 @@ export default function page() {
                                 <div className="flex gap-4 flex-col items-center">
                                     <div className="avatar">
                                         <div className="ring-primary ring-offset-base-100 w-24 rounded-full ring-2 ring-offset-2\">
-                                            <img src="<?= !empty($_SESSION['avatar']) ? $_SESSION['avatar'] : '/assets/usuario.png' ?>"
+                                            <img src={session?.user?.image ?? "/images/aquaprofile.png"}
                                                 alt="avatar" />
                                         </div>
                                     </div>
 
                                     <div className="flex flex-col items-center justify-center justify-center">
-                                        <p className="text-[22px] font-bold leading-tight tracking-[-0.015em] text-center ">
+                                        <p className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] text-center ">
+                                            AQUA
                                         </p>
-                                        <p className="text-base font-normal leading-normal text-center ">
+                                        <p className="text-slate-200 font-normal leading-normal text-center ">
+                                            #asdasda
                                         </p>
                                     </div>
                                 </div>
@@ -46,7 +50,7 @@ export default function page() {
                         <h2 className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Historial
                             de compra</h2>
                         <div className="overflow-x-auto h-full">
-                            <table className="table">
+                            <table className="table bg-slate-200">
 
                                 <thead>
                                     <tr>
@@ -58,7 +62,9 @@ export default function page() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    {
+                                        /*
+                                        <tr>
                                         <td></td>
                                         <td><select className="select">
                                             <option>
@@ -76,6 +82,8 @@ export default function page() {
 
                                         </th>
                                     </tr>
+                                        */
+                                    }
                                     <tr>
                                         <td >No hay pedidos registrados.</td>
                                     </tr>

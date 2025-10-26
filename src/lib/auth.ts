@@ -14,6 +14,7 @@ export const auth = betterAuth({
     provider: 'mysql',
     
   }),
+  
   advanced:{
     useSecureCookies:process.env.NODE_ENV === "production",    
     
@@ -41,6 +42,10 @@ export const auth = betterAuth({
       
   },
   plugins: [nextCookies()],
- 
+  hooks:{
+    after:createAuthMiddleware(async (ctx) => {
+      const responseHeaders = ctx.context.responseHeaders;
+    })
+  }
 
 });
