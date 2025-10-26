@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
         }
 
         const history = await prisma.orders.findMany({
-            where: { user_id: Number(userId) },
+            where: { user_id: userId },
             orderBy: { created_at: 'desc' }
         });
 
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
         `
         const newOrder = await prisma.orders.create({
             data: {
-                user_id: Number(user_id),
+                user_id: user_id,
                 items: JSON.stringify(items), // Prisma espera un `String`, así que lo convertimos
                 total: total
             }
