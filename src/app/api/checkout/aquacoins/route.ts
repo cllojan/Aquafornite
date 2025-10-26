@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
         metadata:{
             userId:userId ?? "",
             items:JSON.stringify(coins),
+            type:"aquacoins"
           }
       });
     
