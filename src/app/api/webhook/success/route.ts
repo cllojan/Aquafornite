@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
             if(userId){
                 await prisma.orders.create({
                     data: {
-                        user_id: Number(userId),
+                        user_id: userId,
                         items: JSON.stringify(items),
                         total: total,
                     },
