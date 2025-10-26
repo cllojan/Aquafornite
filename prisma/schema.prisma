@@ -83,3 +83,12 @@ model aquacoins_history {
   user       User @relation(fields: [user_id], references: [id])
 
 }
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String   @db.Text
+  value      String   @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  @@map("verification")
+}
