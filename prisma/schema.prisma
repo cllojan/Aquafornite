@@ -7,46 +7,8 @@ datasource db {
   provider = "mysql"
   url      = "mysql://root:yHAoLfSRMNPBgFOLiCwaJlajQPEPbBHE@crossover.proxy.rlwy.net:10776/railway"
 }
-
-model orders {
-  id         Int      @id @default(autoincrement())
-  user_id    Int
-  items      String   @db.LongText
-  total      Decimal  @db.Decimal(11, 2)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  //relations
-  user       User    @relation(fields: [user_id], references: [id])
-
-}
-
-model aquacoins_history {
-  id         Int      @id @default(autoincrement())
-  user_id    Int
-  amount     Decimal  @db.Decimal(11, 2)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-
-  user       User @relation(fields: [user_id], references: [id])
-
-}
-
-model users {
-  id            Int      @id @default(autoincrement())
-  name          String   @db.VarChar(100)
-  email         String   @db.VarChar(100)
-  password      String   @db.VarChar(255)
-  created_at    DateTime @default(now()) @db.Timestamp(0)
-  aquacoins     Int?     @default(0)
-  profile_image String?  @db.VarChar(512)
-  discord_name  String?  @db.VarChar(100)
-  discord_id    String?  @unique(map: "discord_id") @db.VarChar(50)
-
-  
-  
-
-}
-
 model User {
-  id            Int    @id @default(autoincrement())
+  id            String    @id @default(uuid())
   uuid          String    @default(uuid()) @unique
   name          String    @db.Text
   email         String
@@ -76,7 +38,7 @@ model Session {
   updatedAt DateTime @updatedAt
   ipAddress String?  @db.Text
   userAgent String?  @db.Text
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
@@ -87,7 +49,7 @@ model Account {
   id                    String    @id @default(uuid())
   accountId             String    @db.Text
   providerId            String    @db.Text
-  userId                Int
+  userId                String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?   @db.Text
   refreshToken          String?   @db.Text
@@ -102,13 +64,22 @@ model Account {
   @@map("account")
 }
 
-model Verification {
-  id         String   @id @default(uuid())
-  identifier String   @db.Text
-  value      String   @db.Text
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
+model orders {
+  id         Int      @id @default(autoincrement())
+  user_id    String
+  items      String   @db.LongText
+  total      Decimal  @db.Decimal(11, 2)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  user       User    @relation(fields: [user_id], references: [id])
 
-  @@map("verification")
+}
+
+model aquacoins_history {
+  id         Int      @id @default(autoincrement())
+  user_id    String
+  amount     Decimal  @db.Decimal(11, 2)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+
+  user       User @relation(fields: [user_id], references: [id])
+
 }
