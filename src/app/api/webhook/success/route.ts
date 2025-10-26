@@ -20,6 +20,24 @@ export async function POST(req: NextRequest) {
 
         if (event.type === "checkout.session.completed") {
             const session = event.data.object as Stripe.Checkout.Session;
+           if(session.metadata?.type === "aquacoins"){
+            const userId = session.metadata?.userId;
+            const coins = JSON.parse(session.metadata?.items || "[]");
+            const total = session.amount_total! / 100;
+            if(userId){
+                await prisma.user.update({
+                    where:{id:userId},
+                    data:{aquacoins:{increment:coins.quantity}},
+                })
+                await prisma.aquacoins_history.create({
+                    data: {
+                        user_id: userId,
+                        amount: coins?.quantity,                        
+                    },
+                });
+                console.log("Orden guardada");
+            }
+           }else{
             const userId = session.metadata?.userId;
             const items = JSON.parse(session.metadata?.items || "[]");
             const total = session.amount_total! / 100;
@@ -33,6 +51,7 @@ export async function POST(req: NextRequest) {
                 });
                 console.log("Orden guardada");
             }
+           }
             
         }
         return NextResponse.json({ received: true }, { status: 200 });
