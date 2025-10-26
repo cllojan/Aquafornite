@@ -16,10 +16,7 @@ export const auth = betterAuth({
   }),
   advanced:{
     useSecureCookies:process.env.NODE_ENV === "production",    
-    database:{
-      generateId:false,
-      useNumberId: true
-    },
+    
     ipAddress:{
       ipAddressHeaders: ['cf-connecting-ip'] 
     }
