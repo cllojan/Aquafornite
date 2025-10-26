@@ -13,7 +13,7 @@ model User {
   name          String    @db.Text
   email         String
   password      String?
-  aquacoins     Int?
+  aquacoins     Int?      @default(0)
   discord_name  String?   @db.VarChar(100)
   discord_id    String?    @unique(map: "discord_id") @db.VarChar(50)
   emailVerified Boolean   @default(false)
