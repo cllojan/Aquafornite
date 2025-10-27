@@ -23,8 +23,9 @@ export const auth = betterAuth({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
       permissions: 2048 | 16384,
-      mapProfileToUser: (profile: any) => ({
-        discord_id: profile.accountId,
+      mapProfileToUser: (profile) => ({
+        discord_id: profile.id,
+        discord_name: `${profile.username}#${profile.discriminator}`
       })
     },
 
