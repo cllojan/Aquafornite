@@ -3,10 +3,12 @@ import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
+import { useState,useEffect } from "react";
 
 export default function page() {
     const {user, isLoading} = useUser();
     const { data: session } = useSession();  
+    const [history, setHistory] = useState<any[]>([]);
     const router = useRouter();
     if (isLoading) {
         return (
@@ -15,7 +17,21 @@ export default function page() {
           </div>
         );
     }
-    
+    useEffect(() => {
+        const fetchHistory = async () => {
+          if (!user) return;
+          try {
+            const res = await fetch(`/api/history?userId=${user.id}`);
+            const data = await res.json();
+            setHistory(data);
+          } catch (err) {
+            console.error("Error al obtener historial:", err);
+          } 
+        };
+        
+        fetchHistory();
+      }, [user]);
+      console.log(history)
     return (
         <div className="bg-[radial-gradient(ellipse_at_left,_#0774BB_0%,_#052F6F_75%,_#040A3F_100%)] bg-fixed">
             <Header />
@@ -83,7 +99,9 @@ export default function page() {
                                         </th>
                                     </tr>
                                         */
+                                      
                                     }
+                                    
                                     <tr>
                                         <td >No hay pedidos registrados.</td>
                                     </tr>
