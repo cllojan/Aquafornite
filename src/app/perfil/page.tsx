@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
 import { useState,useEffect } from "react";
 
-export default function page() {
+export default function Perfil() {
     const {user, isLoading} = useUser();
     const { data: session } = useSession();  
     const [history, setHistory] = useState<any[]>([]);
