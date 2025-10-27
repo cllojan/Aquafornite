@@ -42,7 +42,7 @@ export const auth = betterAuth({
       mapProfileToUser: async (profile) => {        
         return {
         discord_id: profile.id,
-        discord_name: profile.display_name
+        discord_name: profile.username || "NO ES USERNAME"
       }}
     },
 
