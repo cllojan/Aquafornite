@@ -51,6 +51,7 @@ model Account {
   providerId            String    @db.Text
   userId                String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  global_name           String?
   accessToken           String?   @db.Text
   refreshToken          String?   @db.Text
   idToken               String?   @db.Text

@@ -18,6 +18,14 @@ export const auth = betterAuth({
     enabled: true,
 
   },
+  account:{
+    additionalFields:{
+      global_name:{
+        type:"string",
+        required:false,
+      }
+    }
+  },
   socialProviders: {
     discord: {
       clientId: process.env.DISCORD_CLIENT_ID as string,
