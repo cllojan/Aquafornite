@@ -23,13 +23,30 @@ export const auth = betterAuth({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
       permissions: 2048 | 16384,
-      mapProfileToUser: (profile) => ({
+      mapProfileToUser: async (profile) => ({
         discord_id: profile.id,
-        discord_name: `${profile.username}#${profile.discriminator}`
+        discord_name: `${profile.display_name}#${profile.discriminator}`
       })
     },
 
 
   },
   plugins: [nextCookies()],  
+  databaseHooks:{
+    account:{
+      update:{
+        after:async (account)=>{
+          if(account.id){
+            await prisma.user.update({
+              where: {id:account.userId},
+              data:{
+                discord_id:account.accountId,
+                
+              }
+            })
+          }
+        }
+      }
+    }
+  }
 });
