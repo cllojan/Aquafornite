@@ -18,6 +18,14 @@ export const auth = betterAuth({
     enabled: true,
 
   },
+  user:{
+    additionalFields:{
+      discord_name:{
+        type:"string",
+        required:false,
+      }
+    }
+  },
   account:{
     additionalFields:{
       global_name:{
@@ -31,10 +39,11 @@ export const auth = betterAuth({
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
       permissions: 2048 | 16384,
-      mapProfileToUser: async (profile) => ({
+      mapProfileToUser: async (profile) => {        
+        return {
         discord_id: profile.id,
         discord_name: profile.global_name
-      })
+      }}
     },
 
 
@@ -44,6 +53,7 @@ export const auth = betterAuth({
     account:{
       update:{
         after:async (account)=>{
+          
           if(account.id){
             await prisma.user.update({
               where: {id:account.userId},
