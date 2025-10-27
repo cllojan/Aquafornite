@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
 import { useState,useEffect } from "react";
 
-export default function Perfil() {
+export default function Page() {
     const {user, isLoading} = useUser();
     const { data: session } = useSession();  
     const [history, setHistory] = useState<any[]>([]);
@@ -21,7 +21,7 @@ export default function Perfil() {
         const fetchHistory = async () => {
           if (!user) return;
           try {
-            const res = await fetch(`/api/history?user_id=${user.id}`);
+            const res = await fetch(`/api/history?user_id=ip7RUv01HhNurH4MkTe7fVGuL68Vh4jo`);
             const data = await res.json();
             setHistory(data);
           } catch (err) {
