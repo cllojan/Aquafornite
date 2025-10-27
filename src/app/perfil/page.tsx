@@ -21,7 +21,7 @@ export default function page() {
         const fetchHistory = async () => {
           if (!user) return;
           try {
-            const res = await fetch(`/api/history?userId=${user.id}`);
+            const res = await fetch(`/api/history?user_id=${user.id}`);
             const data = await res.json();
             setHistory(data);
           } catch (err) {
