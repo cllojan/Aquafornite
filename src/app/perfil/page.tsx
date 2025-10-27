@@ -30,7 +30,7 @@ export default function Page() {
         };
         
         fetchHistory();
-      }, [user]);
+      }, []);
       console.log(history)
     return (
         <div className="bg-[radial-gradient(ellipse_at_left,_#0774BB_0%,_#052F6F_75%,_#040A3F_100%)] bg-fixed">
