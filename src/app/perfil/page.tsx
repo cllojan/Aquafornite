@@ -10,13 +10,7 @@ export default function Page() {
     const { data: session } = useSession();  
     const [history, setHistory] = useState<any[]>([]);
     const router = useRouter();
-    if (isLoading) {
-        return (
-          <div className="flex items-center justify-center h-screen">
-            <div className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-10 h-10" />
-          </div>
-        );
-    }
+   
     useEffect(() => {
         const fetchHistory = async () => {
           if (!user) return;
@@ -30,8 +24,15 @@ export default function Page() {
         };
         
         fetchHistory();
-      }, []);
+      }, [user]);
       console.log(history)
+      if (isLoading) {
+        return (
+          <div className="flex items-center justify-center h-screen">
+            <div className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-10 h-10" />
+          </div>
+        );
+    }
     return (
         <div className="bg-[radial-gradient(ellipse_at_left,_#0774BB_0%,_#052F6F_75%,_#040A3F_100%)] bg-fixed">
             <Header />

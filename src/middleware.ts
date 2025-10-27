@@ -12,5 +12,5 @@ export async function middleware(request: NextRequest) {
 }
 export const config = {
   runtime: "nodejs",
-  matcher: ["/perfil", "/aquacoins"], // Apply middleware to specific routes
+  matcher: [ "/aquacoins"], // Apply middleware to specific routes
 };
