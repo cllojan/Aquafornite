@@ -34,10 +34,10 @@ export default function page() {
 
                                     <div className="flex flex-col items-center justify-center justify-center">
                                         <p className="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] text-center ">
-                                            AQUA
+                                            {session?.user.name}
                                         </p>
                                         <p className="text-slate-200 font-normal leading-normal text-center ">
-                                            #asdasda
+                                        {user?.discord_name}
                                         </p>
                                     </div>
                                 </div>

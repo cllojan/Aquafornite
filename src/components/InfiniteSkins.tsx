@@ -25,9 +25,9 @@ export default function SkinGridInfinite({ groupedSkins }: Props) {
   const { addItem } = useSkinCart()
 
   const sizeSkin: { [key: string]: string } = {
-    'Size_4_x_1': "col-span-4 ",
-    'Size_3_x_1': "col-span-3" ,
-    'Size_2_x_1': "col-span-2",
+    'Size_4_x_1': "col-span-1 sm:col-span-1 md:col-span-4 ",
+    'Size_3_x_1': "col-span-1 sm:col-span-1 md:col-span-3" ,
+    'Size_2_x_1': "col-span-1 col-span-2",
     'Size_1_x_1': "col-span-1",
   };
   const scaleSkin: Record<string, string> = {
@@ -87,7 +87,7 @@ export default function SkinGridInfinite({ groupedSkins }: Props) {
 
         <div className="flex flex-col " key={key}>
           <h2 className="text-3xl font-semibold mt-8 text-white">{key}</h2>
-          <div className=" grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mt-4 justify-items-center ">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 justify-items-center ">
             {
               value?.skins?.map((skin, idx) => {
                 return (
