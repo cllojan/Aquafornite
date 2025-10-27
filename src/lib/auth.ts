@@ -25,7 +25,7 @@ export const auth = betterAuth({
       permissions: 2048 | 16384,
       mapProfileToUser: async (profile) => ({
         discord_id: profile.id,
-        discord_name: `${profile.display_name}#${profile.discriminator}`
+        discord_name: `${profile.global_name}#${profile.display_name}`
       })
     },
 
