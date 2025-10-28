@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.2.1",
-    "@prisma/client": "^6.16.2",
+    "@prisma/client": "^6.18.0",
+    "@prisma/extension-accelerate": "^2.0.2",
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.9.0",
     "argon2": "^0.44.0",
@@ -44,7 +45,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "daisyui": "^5.2.3",
-    "prisma": "^6.17.1",
+    "prisma": "^6.18.0",
     "tailwindcss": "^4.1.6",
     "typescript": "^5",
     "wrangler": "^4.19.2"
