@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza181aHp3a3RRRTRIMkY4VXRVUFlfaTkiLCJhcGlfa2V5IjoiMDFLOE5SR1I5Sk5aQTE1SE1aU0NBREZSSjYiLCJ0ZW5hbnRfaWQiOiJmOWYyN2U4OGZlOWIyZGYxNjgwZTJkNDE3MzQwYzI4ZTRiNjZlMzQzNmI4MTEwZGY0YjI1YWQyMWQ0ZWQ0OGMwIiwiaW50ZXJuYWxfc2VjcmV0IjoiZWMyMDhjMDgtYWUzNi00OTcwLThiYWQtMzQ5ZDZlNjQ4MzllIn0.LHAEB5uXo-XkVlE2YMmGFJYH-KhJDh65Pji6XqUytGg"
+  url      = "mysql://root:yHAoLfSRMNPBgFOLiCwaJlajQPEPbBHE@crossover.proxy.rlwy.net:10776/railway"
 }
 model User {
   id            String    @id @default(uuid())

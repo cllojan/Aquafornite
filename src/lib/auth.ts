@@ -1,14 +1,13 @@
 import { betterAuth } from "better-auth";
 
 import { prismaAdapter } from "better-auth/adapters/prisma"
-
+import { PrismaClient } from "@prisma/client"
 import { nextCookies } from "better-auth/next-js"
 import { createAuthMiddleware } from "better-auth/api";
 import bcrypt from "bcrypt";
 import argon2 from "argon2";
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
-const prisma = new PrismaClient().$extends(withAccelerate());
+
+const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
