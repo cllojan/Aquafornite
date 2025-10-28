@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 
+
 export default function Page() {
     const { user, isLoading } = useUser();
     const { data: session } = useSession();
@@ -15,9 +16,9 @@ export default function Page() {
         const fetchHistory = async () => {
             if (!user) return;
             try {
-                const res = await fetch(`/api/history?user_id=${user.id}`);
+                const res = await fetch(`/api/history?user_id=ip7RUv01HhNurH4MkTe7fVGuL68Vh4jo`);
                 const data = await res.json();
-                setHistory(data);
+                setHistory(data.history);
             } catch (err) {
                 console.error("Error al obtener historial:", err);
             }
@@ -25,7 +26,7 @@ export default function Page() {
 
         fetchHistory();
     }, [user]);
-    console.log(history.length)
+    
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-screen">
@@ -80,14 +81,14 @@ export default function Page() {
                                 </thead>
                                 <tbody>
                                     {
-                                        history.length !== 0 ?
-                                            history.map(elm => (
-                                                <tr>
+                                        history.length > 0 ?
+                                            history.map((elm,idx) => (
+                                                <tr key={idx}>
                                                     <td>{elm.id}</td>
                                                     <td><select className="select">
                                                         {
-                                                            JSON.parse(elm.items).map((item:any) => (
-                                                                <option>{item.name}</option>
+                                                            JSON.parse(elm.items).map((item:any,idx:number) => (
+                                                                <option key={idx}>{item.name}</option>
                                                             ))
                                                         }
                                                     </select>
