@@ -3,34 +3,34 @@ import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Page() {
-    const {user, isLoading} = useUser();
-    const { data: session } = useSession();  
+    const { user, isLoading } = useUser();
+    const { data: session } = useSession();
     const [history, setHistory] = useState<any[]>([]);
     const router = useRouter();
-   
+
     useEffect(() => {
         const fetchHistory = async () => {
-          if (!user) return;
-          try {
-            const res = await fetch(`/api/history?user_id=ip7RUv01HhNurH4MkTe7fVGuL68Vh4jo`);
-            const data = await res.json();
-            setHistory(data);
-          } catch (err) {
-            console.error("Error al obtener historial:", err);
-          } 
+            if (!user) return;
+            try {
+                const res = await fetch(`/api/history?user_id=ip7RUv01HhNurH4MkTe7fVGuL68Vh4jo`);
+                const data = await res.json();
+                setHistory(data);
+            } catch (err) {
+                console.error("Error al obtener historial:", err);
+            }
         };
-        
+
         fetchHistory();
-      }, [user]);
-      console.log(history)
-      if (isLoading) {
+    }, [user]);
+    console.log(history)
+    if (isLoading) {
         return (
-          <div className="flex items-center justify-center h-screen">
-            <div className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-10 h-10" />
-          </div>
+            <div className="flex items-center justify-center h-screen">
+                <div className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-10 h-10" />
+            </div>
         );
     }
     return (
@@ -54,7 +54,7 @@ export default function Page() {
                                             {session?.user.name}
                                         </p>
                                         <p className="text-slate-200 font-normal leading-normal text-center ">
-                                        {user?.discord_name}
+                                            {user?.discord_name}
                                         </p>
                                     </div>
                                 </div>
@@ -80,32 +80,42 @@ export default function Page() {
                                 </thead>
                                 <tbody>
                                     {
+                                        history.length > 0 ?
+                                            history.map(elm => (
+                                                <tr>
+                                                    <td>{elm.id}</td>
+                                                    <td><select className="select">
+                                                        {
+                                                            JSON.parse(elm.items).map((item:any) => (
+                                                                <option>{item.name}</option>
+                                                            ))
+                                                        }
+                                                    </select>
+                                                    </td>
+                                                    <td>
+                                                        <span className="badge badge-outline badge-success">{elm.total}</span>
+                                                    </td>
+                                                    <td>{elm.created_at}</td>
+                                                    <th>
+
+                                                        <span className="truncate">View</span>
+
+                                                    </th>
+                                                </tr>
+                                            ))
+                                            :
+                                            (
+                                                <tr>
+                                                    <td >No hay pedidos registrados.</td>
+                                                </tr>
+                                            )
                                         /*
-                                        <tr>
-                                        <td></td>
-                                        <td><select className="select">
-                                            <option>
-                                                $
-                                            </option>
-                                        </select>
-                                        </td>
-                                        <td>
-                                            <span className="badge badge-outline badge-success"></span>
-                                        </td>
-                                        <td></td>
-                                        <th>
-
-                                            <span className="truncate">View</span>
-
-                                        </th>
-                                    </tr>
+                                        
                                         */
-                                      
+
                                     }
-                                    
-                                    <tr>
-                                        <td >No hay pedidos registrados.</td>
-                                    </tr>
+
+                                   
 
                                 </tbody>
 
