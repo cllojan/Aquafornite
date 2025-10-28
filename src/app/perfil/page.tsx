@@ -25,7 +25,7 @@ export default function Page() {
 
         fetchHistory();
     }, [user]);
-    console.log(history)
+    console.log(history.length)
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-screen">
@@ -80,7 +80,7 @@ export default function Page() {
                                 </thead>
                                 <tbody>
                                     {
-                                        history.length > 0 ?
+                                        history.length !== 0 ?
                                             history.map(elm => (
                                                 <tr>
                                                     <td>{elm.id}</td>
