@@ -10,7 +10,10 @@ export async function getSkins() {
         authorization: `${process.env.NEXT_PUBLIC_APIKEY_FORTNITE}`
     }*/
         
-    const res = await fetch("https://fortnite-api.com/v2/shop?language=es")
+    const res = await fetch("https://fortnite-api.com/v2/shop?language=es"{
+        cache: "no-store",
+        next:{revalidate:0} 
+      })
     const data = await res.json();
     
     const skinsRate = data.data.entries;
