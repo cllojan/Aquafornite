@@ -1,3 +1,4 @@
+import { useCurrency } from "@/hooks/useCurrency";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react"
 
@@ -16,9 +17,10 @@ interface CustomSelectProps{
 
 export default function SelectedItems({options, value, onChange}:CustomSelectProps) {
     const [selected, setSelected] = useState(options[0]);
-    
+    const {currency, setCurrency } = useCurrency()
     const handleSelect = (option: Option) =>{
         setSelected(option)
+        setCurrency(option.label)
         if(onChange) onChange(option)
     }
 

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Skin, { SkinWithDiscount } from "@/interfaces/skin.interface";
 import { useSkinCart } from "@/hooks/useSkinCart";
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useCurrency } from "@/hooks/useCurrency";
 interface Layout {
   id: string,
   name: string,
@@ -21,7 +22,7 @@ export default function SkinGridInfinite({ groupedSkins }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-
+  const {currency,rates} = useCurrency();
   const { addItem } = useSkinCart()
 
   const sizeSkin: { [key: string]: string } = {
@@ -80,6 +81,8 @@ export default function SkinGridInfinite({ groupedSkins }: Props) {
   //   console.log(id)
   //   setActiveId(prev => (prev === id? null : id));
   // }
+  const currencyPrice = 0.0043 * (rates[currency]??1);
+  console.log(currencyPrice)
   return (
     <section className="p-6">
 
@@ -123,7 +126,7 @@ export default function SkinGridInfinite({ groupedSkins }: Props) {
                       <div className="flex flex-col ml-5 mb-5">
                         
                         <span className="text-white  font-semibold text-xl truncate ellipsis">{ skin?.bundle?.name || skin?.brItems?.[0].name || skin.tracks?.[0].title}</span>
-                        <span className="text-white/75 text-lg">{skin.finalPrice} V-BUCKS - {skin.discount} USD</span>
+                        <span className="text-white/75 text-lg">{skin.finalPrice} V-BUCKS - {parseFloat((skin?.finalPrice * currencyPrice).toFixed(2))} {currency}</span>
                       </div>
                       {
                         !isMobile && (

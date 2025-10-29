@@ -8,10 +8,11 @@ import { useRouter } from "next/navigation";
 import SelectedItems from "./SelectedItems";
 import { signOut, useSession } from "@/lib/auth-client";
 import Skin, { SkinWithDiscount } from "@/interfaces/skin.interface";
+import { useCurrency } from "@/hooks/useCurrency";
 const countryOptions = [
     { id: "usd", label: "DOLAR", icon: <Icon icon="emojione-v1:flag-for-united-states" fontSize={28} style={{ color: 'white' }} /> },
     { id: "mx", label: "MXN", icon: <Icon icon="emojione-v1:flag-for-mexico" fontSize={28} style={{ color: 'white' }} /> },
-    { id: "sol", label: "SOL", icon: <Icon icon="emojione-v1:flag-for-peru" fontSize={28} style={{ color: 'white' }} /> },
+    { id: "sol", label: "PEN", icon: <Icon icon="emojione-v1:flag-for-peru" fontSize={28} style={{ color: 'white' }} /> },
 
 ]
 
@@ -20,6 +21,9 @@ const Header = () => {
     const [theme, setTheme] = useState('corporate');
     const { data: session } = useSession();    
     const { items, removeAll, removeItem } = useSkinCart()
+    const {currency, rates } = useCurrency();
+    console.log(rates[currency])
+    
     const skins = items.map(skin => skin.discount)
     const total = skins.reduce((total, price) => total + price, 0)
 
@@ -51,6 +55,7 @@ const Header = () => {
     const handleCountryChange = (value: any) => {
         console.log("País seleccionado:", value.id)
     }
+    
     const handleSignOut = async () => {
         try {
             await signOut();
