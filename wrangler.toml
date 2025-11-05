@@ -3,9 +3,16 @@ main = ".open-next/worker.js"
 name = "aquafornais"
 compatibility_date = "2025-03-25"
 compatibility_flags = ["nodejs_compat"]
+
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
+
+[[d1_databases]]
+binding="aquadb"
+database_name="aquadb"
+database_id="04ccbf2c-49b3-4345-a0b7-56883bb9e11c"
+
 [vars]
 DATABASE_URL = "mysql://root:yHAoLfSRMNPBgFOLiCwaJlajQPEPbBHE@crossover.proxy.rlwy.net:10776/railway"
 BETTER_AUTH_SECRET = "NOSf9gzBoiF2Ea4sAzkxqNQWyqLWxogi"
