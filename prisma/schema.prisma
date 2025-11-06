@@ -1,31 +1,30 @@
-
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
-  provider = "mysql"
-  url      = "mysql://root:yHAoLfSRMNPBgFOLiCwaJlajQPEPbBHE@crossover.proxy.rlwy.net:10776/railway"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
+
 model User {
   id            String    @id @default(uuid())
   uuid          String    @default(uuid()) @unique
-  name          String    @db.Text
+  name          String
   email         String
   password      String?
   aquacoins     Int?      @default(0)
-  discord_name  String?   @db.VarChar(100)
-  discord_id    String?    @unique(map: "discord_id") @db.VarChar(50)
+  discord_name  String?
+  discord_id    String?   @unique
   emailVerified Boolean   @default(false)
-  image         String?   @db.Text
+  image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
+
   sessions      Session[]
   accounts      Account[]
-
-  orders        orders[]
-  aquacoins_h aquacoins_history[]
+  orders        Orders[]
+  aquacoins_h   AquacoinsHistory[]
 
   @@unique([email])
   @@map("user")
@@ -34,63 +33,65 @@ model User {
 model Session {
   id        String   @id @default(uuid())
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  ipAddress String?  @db.Text
-  userAgent String?  @db.Text
+  ipAddress String?
+  userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("session")
 }
 
 model Account {
   id                    String    @id @default(uuid())
-  accountId             String    @db.Text
-  providerId            String    @db.Text
+  accountId             String
+  providerId            String
   userId                String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   global_name           String?
-  accessToken           String?   @db.Text
-  refreshToken          String?   @db.Text
-  idToken               String?   @db.Text
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
   accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope                 String?   @db.Text
-  password              String?   @db.Text
+  scope                 String?
+  password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
   @@map("account")
 }
 
-model orders {
+model Orders {
   id         Int      @id @default(autoincrement())
   user_id    String
-  items      String   @db.LongText
-  total      Decimal  @db.Decimal(11, 2)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-  user       User    @relation(fields: [user_id], references: [id])
+  items      String
+  total      Float
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
 
+  @@map("orders")
 }
 
-model aquacoins_history {
+model AquacoinsHistory {
   id         Int      @id @default(autoincrement())
   user_id    String
-  amount     Decimal  @db.Decimal(11, 2)
-  created_at DateTime @default(now()) @db.Timestamp(0)
+  amount     Float
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
 
-  user       User @relation(fields: [user_id], references: [id])
-
+  @@map("aquacoins_history")
 }
+
 model Verification {
   id         String   @id @default(uuid())
-  identifier String   @db.Text
-  value      String   @db.Text
+  identifier String
+  value      String
   expiresAt  DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
+
   @@map("verification")
 }
