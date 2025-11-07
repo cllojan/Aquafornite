@@ -5,16 +5,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19ab1pHaWpqUmFRbXFmS2FETk5taXYiLCJhcGlfa2V5IjoiMDFLOUU1MDJQTVhaU1hSUjVLWUFZQU1HSjAiLCJ0ZW5hbnRfaWQiOiI0ODMyNDI5ZDAwODhmMmYyMmFjYjYzMzgwZmJhMjE0MjMwMjQ3ZjdiNWE1ZjIwMWQ5MDk0OTVkZWM1NThjZjExIiwiaW50ZXJuYWxfc2VjcmV0IjoiMjgzNjBlYjAtYTc2My00ZTM1LWJhZTQtZjM0MjNhZDE0OGEwIn0.oR0t4e3UrRnw5rZSxgEQhPY_NxJyTak3C67qPQshZ2o"
-
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
   id            String    @id @default(uuid())
   uuid          String    @default(uuid()) @unique
   name          String
-  email         String    @unique
+  email         String
   password      String?
   aquacoins     Int?      @default(0)
   discord_name  String?
@@ -27,8 +26,9 @@ model User {
   sessions      Session[]
   accounts      Account[]
   orders        Orders[]
-  aquacoins_h   aquacoins_history[]
+  aquacoins_h   AquacoinsHistory[]
 
+  @@unique([email])
   @@map("user")
 }
 
@@ -70,17 +70,17 @@ model Orders {
   id         Int      @id @default(autoincrement())
   user_id    String
   items      String
-  total      Decimal  @db.Decimal(11, 2)
+  total      Float
   created_at DateTime @default(now())
   user       User     @relation(fields: [user_id], references: [id])
 
   @@map("orders")
 }
 
-model aquacoins_history {
+model AquacoinsHistory {
   id         Int      @id @default(autoincrement())
   user_id    String
-  amount     Decimal  @db.Decimal(11, 2)
+  amount     Float
   created_at DateTime @default(now())
   user       User     @relation(fields: [user_id], references: [id])
 
