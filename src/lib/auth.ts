@@ -6,12 +6,11 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import { PrismaD1 } from "@prisma/adapter-d1";
 
 
-const adapter = new PrismaD1(env.aquadb);
 const prisma = new PrismaClient()
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: 'mysql',
+    provider: 'postgresql',
     
   }),
   secret: process.env.BETTER_AUTH_SECRET,
