@@ -3,7 +3,7 @@ main = ".open-next/worker.js"
 name = "aquafornais"
 compatibility_date = "2025-03-25"
 compatibility_flags = ["nodejs_compat"]
-node_compat = true
+
 
 
 [assets]
