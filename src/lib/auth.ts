@@ -4,7 +4,9 @@ import { PrismaClient } from '@prisma/client/edge'
 import { nextCookies } from "better-auth/next-js"
 import { withAccelerate } from '@prisma/extension-accelerate'
 
-const prisma = new PrismaClient().$extends(withAccelerate());
+const prisma = new PrismaClient({
+  datasourceUrl:"prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19ab1pHaWpqUmFRbXFmS2FETk5taXYiLCJhcGlfa2V5IjoiMDFLOUU1MDJQTVhaU1hSUjVLWUFZQU1HSjAiLCJ0ZW5hbnRfaWQiOiI0ODMyNDI5ZDAwODhmMmYyMmFjYjYzMzgwZmJhMjE0MjMwMjQ3ZjdiNWE1ZjIwMWQ5MDk0OTVkZWM1NThjZjExIiwiaW50ZXJuYWxfc2VjcmV0IjoiMjgzNjBlYjAtYTc2My00ZTM1LWJhZTQtZjM0MjNhZDE0OGEwIn0.oR0t4e3UrRnw5rZSxgEQhPY_NxJyTak3C67qPQshZ2o"
+}).$extends(withAccelerate());
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
