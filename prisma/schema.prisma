@@ -25,7 +25,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   orders        Orders[]
-  aquacoins_h   AquacoinsHistory[]
+  aquacoins_h   aquacoins_history[]
 
   @@map("user")
 }
@@ -75,7 +75,7 @@ model Orders {
   @@map("orders")
 }
 
-model AquacoinsHistory {
+model aquacoins_history {
   id         Int      @id @default(autoincrement())
   user_id    String
   amount     Decimal  @db.Decimal(11, 2)
